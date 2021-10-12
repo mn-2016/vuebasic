@@ -7,7 +7,6 @@ import QS from 'qs';
 // 环境切换
 if (process.env.NODE_ENV == 'development') {
     axios.defaults.baseURL = 'http://58.243.0.26:81/api';
-    // axios.defaults.baseURL = 'http://139.9.170.94:8002/api';
 } else if (process.env.NODE_ENV == 'test') {
     axios.defaults.baseURL = '';
 } else if (process.env.NODE_ENV == 'production') {
@@ -34,8 +33,7 @@ axios.interceptors.request.use(
 // 响应拦截
 axios.interceptors.response.use(
     response => {
-        // -2  token过期
-        // -3 字段验证没有通过
+        // -2  token过期  -3 字段验证没有通过
         if (response.data.code === -2) {
             localStorage.removeItem('token');
             window.location.href="#/login";
@@ -72,9 +70,9 @@ export function get(url, params) {
  * @param {String} url [请求的url地址] 
  * @param {Object} params [请求时携带的参数] 
  */
-export function post(url, params, headers = {}) {
+export function post(url, params) {
     return new Promise((resolve, reject) => {
-        axios.post(url, QS.stringify(params), headers)
+        axios.post(url, QS.stringify(params))
             .then(res => {
                 resolve(res.data);
             })
