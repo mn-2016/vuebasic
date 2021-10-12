@@ -1,4 +1,4 @@
-# gshop
+# vue-basic
 
 ## Project setup
 ```
